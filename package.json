@@ -9,10 +9,14 @@
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "graphql": "15.7.1",
     "parse": "^3.4.3",
     "parse-dashboard": "^4.1.4",
     "parse-server": "^5.2.4",
     "parse-server-mailjet-adapter": "^1.1.0"
+  },
+  "resolutions": {
+    "graphql": "15.7.1"
   },
   "devDependencies": {
     "@types/parse": "^2.18.16",

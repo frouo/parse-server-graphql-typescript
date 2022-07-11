@@ -1,6 +1,6 @@
 require("dotenv").config();
 import express from "express";
-var ParseServer = require("parse-server").ParseServer;
+const { default: ParseServer, ParseGraphQLServer } = require("parse-server");
 var ParseDashboard = require("parse-dashboard");
 
 const appName = process.env.PARSE_SERVER_APP_NAME || "";
@@ -55,6 +55,17 @@ var api = new ParseServer({
 });
 
 /**
+ * **************
+ * PARSE GRAPHQL
+ * **************
+ */
+
+// Create the GraphQL Server Instance
+const parseGraphQLServer = new ParseGraphQLServer(api, {
+  graphQLPath: "/graphql",
+});
+
+/**
  * ****************
  * PARSE DASHBOARD
  * ****************
@@ -70,6 +81,7 @@ var dashboard = new ParseDashboard(
         appId: process.env.PARSE_SERVER_APP_ID,
         masterKey: process.env.PARSE_SERVER_MASTER_KEY,
         serverURL: process.env.PARSE_SERVER_URL,
+        graphQLServerURL: `${process.env.PARSE_SERVER_URL}/graphql`,
         primaryBackgroundColor:
           process.env.NODE_ENV === "development" ? undefined : "#f00",
         production: process.env.NODE_ENV === "production",
@@ -103,7 +115,8 @@ const app = express();
 //   next();
 // }); // 1. make "x-parse-application-id" optional
 app.use("/dashboard", dashboard); // 2
-app.use("/", api); // 3
+app.use("/", api.app); // 3
+parseGraphQLServer.applyGraphQL(app); // 4
 
 const port = process.env.PORT || 1337;
 const httpServer = require("http").createServer(app);

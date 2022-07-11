@@ -1,0 +1,23 @@
+{
+  "name": "my-app",
+  "description": "parse-server for my-app",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node ."
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "parse": "^3.4.3",
+    "parse-dashboard": "^4.1.4",
+    "parse-server": "^5.2.4",
+    "parse-server-mailjet-adapter": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/parse": "^2.18.16",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
